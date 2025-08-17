@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -18,11 +18,19 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        // Futuristic glow variants
+        glow: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-glow-cyan hover:shadow-glow-cyan hover:scale-105",
+        glowPurple: "bg-accent text-accent-foreground hover:bg-accent/90 shadow-glow-purple hover:shadow-glow-purple hover:scale-105",
+        glowPink: "bg-accent-pink text-foreground hover:bg-accent-pink/90 shadow-glow-pink hover:shadow-glow-pink hover:scale-105",
+        hero: "bg-gradient-neural text-foreground border border-primary/30 hover:border-primary/60 shadow-glow-cyan hover:shadow-glow-cyan hover:scale-105 backdrop-blur-sm",
+        cosmic: "bg-gradient-cosmic text-foreground border border-accent/30 hover:border-accent/60 shadow-glow-purple hover:shadow-glow-purple hover:scale-105",
+        glass: "bg-white/5 text-foreground border border-white/10 hover:bg-white/10 backdrop-blur-md hover:shadow-glow-cyan",
       },
       size: {
         default: "h-10 px-4 py-2",
         sm: "h-9 rounded-md px-3",
         lg: "h-11 rounded-md px-8",
+        xl: "h-14 rounded-lg px-12 text-base font-semibold",
         icon: "h-10 w-10",
       },
     },

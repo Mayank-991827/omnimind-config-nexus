@@ -2,95 +2,97 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* OmniMind Futuristic Design System - All colors MUST be HSL */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Base colors */
+    --background: 226 69% 10%; /* Deep space blue #0A0F2C */
+    --foreground: 180 100% 96%; /* Near white with cyan tint */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* Card system */
+    --card: 226 50% 8%; /* Darker variant of background */
+    --card-foreground: 180 100% 94%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    /* Popover */
+    --popover: 226 60% 12%;
+    --popover-foreground: 180 100% 96%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary - Electric Cyan */
+    --primary: 180 100% 50%; /* Neon cyan #00FFFF */
+    --primary-foreground: 226 69% 10%;
+    --primary-glow: 180 100% 70%; /* Lighter cyan for glows */
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Deep space accent */
+    --secondary: 226 40% 15%;
+    --secondary-foreground: 180 100% 90%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted tones */
+    --muted: 226 30% 20%;
+    --muted-foreground: 180 30% 70%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent - Cosmic purple */
+    --accent: 280 100% 50%; /* Bright purple #8A2BE2 */
+    --accent-foreground: 180 100% 96%;
+    --accent-pink: 300 100% 50%; /* Hot pink #FF00FF */
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 180 100% 96%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Borders and inputs */
+    --border: 226 30% 25%;
+    --input: 226 40% 18%;
+    --ring: 180 100% 50%; /* Cyan ring */
 
-    --radius: 0.5rem;
+    /* Custom gradients and effects */
+    --gradient-cosmic: linear-gradient(135deg, hsl(280 100% 50%), hsl(300 100% 50%)); /* Purple to pink */
+    --gradient-neural: linear-gradient(90deg, hsl(180 100% 50%), hsl(280 100% 50%)); /* Cyan to purple */
+    --gradient-dark: linear-gradient(180deg, hsl(226 69% 10%), hsl(226 50% 8%));
+    
+    /* Glows and shadows */
+    --glow-cyan: 0 0 30px hsl(180 100% 50% / 0.5);
+    --glow-purple: 0 0 30px hsl(280 100% 50% / 0.5);
+    --glow-pink: 0 0 30px hsl(300 100% 50% / 0.5);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-    --sidebar-background: 0 0% 98%;
+    --radius: 0.75rem;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Sidebar (keeping for compatibility) */
+    --sidebar-background: 226 60% 8%;
+    --sidebar-foreground: 180 100% 90%;
+    --sidebar-primary: 180 100% 50%;
+    --sidebar-primary-foreground: 226 69% 10%;
+    --sidebar-accent: 226 40% 15%;
+    --sidebar-accent-foreground: 180 100% 90%;
+    --sidebar-border: 226 30% 25%;
+    --sidebar-ring: 180 100% 50%;
   }
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+  .light {
+    /* Light mode - keeping for future use */
+    --background: 0 0% 100%;
+    --foreground: 226 69% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 226 69% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 226 69% 10%;
+    --primary: 180 100% 40%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 226 10% 95%;
+    --secondary-foreground: 226 69% 10%;
+    --muted: 226 10% 95%;
+    --muted-foreground: 226 30% 40%;
+    --accent: 280 80% 60%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 226 20% 90%;
+    --input: 226 20% 90%;
+    --ring: 180 100% 40%;
   }
 }
 
@@ -100,6 +102,69 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-body;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, hsl(var(--primary)), hsl(var(--accent)));
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, hsl(var(--primary-glow)), hsl(var(--accent-pink)));
+  }
+}
+
+@layer components {
+  /* Glow effects */
+  .glow-cyan {
+    box-shadow: var(--glow-cyan);
+  }
+  
+  .glow-purple {
+    box-shadow: var(--glow-purple);
+  }
+  
+  .glow-pink {
+    box-shadow: var(--glow-pink);
+  }
+
+  /* Glass morphism */
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Neural network lines */
+  .neural-line {
+    background: linear-gradient(90deg, transparent, hsl(var(--primary)), transparent);
+    height: 1px;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  /* Hover tilt effect */
+  .hover-tilt {
+    transform-style: preserve-3d;
+    transition: var(--transition-smooth);
+  }
+
+  .hover-tilt:hover {
+    transform: perspective(1000px) rotateX(5deg) rotateY(5deg) scale(1.02);
   }
 }
