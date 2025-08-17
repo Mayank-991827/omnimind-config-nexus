@@ -40,14 +40,20 @@ function NeuralNodes() {
   );
 }
 
-// Neural network connections component
+// Neural network connections component - simplified to avoid R3F issues
 function NeuralConnections() {
   const ref = useRef<THREE.Group>(null);
-  
-  // Generate connection lines between nodes
+
+  useFrame((state) => {
+    if (ref.current) {
+      ref.current.rotation.y = state.clock.elapsedTime * 0.05;
+    }
+  });
+
+  // Create simple connecting elements using small cylinders
   const connections = useMemo(() => {
     const lines = [];
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 15; i++) {
       const start = new THREE.Vector3(
         (Math.random() - 0.5) * 6,
         (Math.random() - 0.5) * 6,
@@ -58,34 +64,37 @@ function NeuralConnections() {
         (Math.random() - 0.5) * 6,
         (Math.random() - 0.5) * 6
       );
-      lines.push({ start, end });
+      
+      const center = start.clone().add(end).multiplyScalar(0.5);
+      const distance = start.distanceTo(end);
+      
+      lines.push({ 
+        position: center,
+        rotation: new THREE.Euler().setFromQuaternion(
+          new THREE.Quaternion().setFromUnitVectors(
+            new THREE.Vector3(0, 1, 0),
+            end.clone().sub(start).normalize()
+          )
+        ),
+        scale: distance,
+        key: `connection-${i}` 
+      });
     }
     return lines;
   }, []);
 
-  useFrame((state) => {
-    if (ref.current) {
-      ref.current.rotation.y = state.clock.elapsedTime * 0.05;
-    }
-  });
-
   return (
     <group ref={ref}>
-      {connections.map((connection, index) => (
-        <line key={index}>
-          <bufferGeometry>
-            <bufferAttribute
-              attach="attributes-position"
-              count={2}
-              array={new Float32Array([
-                connection.start.x, connection.start.y, connection.start.z,
-                connection.end.x, connection.end.y, connection.end.z
-              ])}
-              itemSize={3}
-            />
-          </bufferGeometry>
-          <lineBasicMaterial color="#8A2BE2" transparent opacity={0.3} />
-        </line>
+      {connections.map((connection) => (
+        <mesh 
+          key={connection.key}
+          position={connection.position}
+          rotation={connection.rotation}
+          scale={[0.01, connection.scale, 0.01]}
+        >
+          <cylinderGeometry args={[1, 1, 1]} />
+          <meshBasicMaterial color="#8A2BE2" transparent opacity={0.3} />
+        </mesh>
       ))}
     </group>
   );
