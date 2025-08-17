@@ -1,16 +1,16 @@
 import { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Points, PointMaterial, Float } from '@react-three/drei';
+import { Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
-// Neural network nodes component
+// Simplified Neural network nodes component
 function NeuralNodes() {
   const ref = useRef<THREE.Points>(null);
   
   // Generate random positions for neural nodes
   const positions = useMemo(() => {
-    const positions = new Float32Array(200 * 3);
-    for (let i = 0; i < 200; i++) {
+    const positions = new Float32Array(150 * 3);
+    for (let i = 0; i < 150; i++) {
       positions[i * 3] = (Math.random() - 0.5) * 8;
       positions[i * 3 + 1] = (Math.random() - 0.5) * 8;
       positions[i * 3 + 2] = (Math.random() - 0.5) * 8;
@@ -40,67 +40,7 @@ function NeuralNodes() {
   );
 }
 
-// Neural network connections component - simplified to avoid R3F issues
-function NeuralConnections() {
-  const ref = useRef<THREE.Group>(null);
-
-  useFrame((state) => {
-    if (ref.current) {
-      ref.current.rotation.y = state.clock.elapsedTime * 0.05;
-    }
-  });
-
-  // Create simple connecting elements using small cylinders
-  const connections = useMemo(() => {
-    const lines = [];
-    for (let i = 0; i < 15; i++) {
-      const start = new THREE.Vector3(
-        (Math.random() - 0.5) * 6,
-        (Math.random() - 0.5) * 6,
-        (Math.random() - 0.5) * 6
-      );
-      const end = new THREE.Vector3(
-        (Math.random() - 0.5) * 6,
-        (Math.random() - 0.5) * 6,
-        (Math.random() - 0.5) * 6
-      );
-      
-      const center = start.clone().add(end).multiplyScalar(0.5);
-      const distance = start.distanceTo(end);
-      
-      lines.push({ 
-        position: center,
-        rotation: new THREE.Euler().setFromQuaternion(
-          new THREE.Quaternion().setFromUnitVectors(
-            new THREE.Vector3(0, 1, 0),
-            end.clone().sub(start).normalize()
-          )
-        ),
-        scale: distance,
-        key: `connection-${i}` 
-      });
-    }
-    return lines;
-  }, []);
-
-  return (
-    <group ref={ref}>
-      {connections.map((connection) => (
-        <mesh 
-          key={connection.key}
-          position={connection.position}
-          rotation={connection.rotation}
-          scale={[0.01, connection.scale, 0.01]}
-        >
-          <cylinderGeometry args={[1, 1, 1]} />
-          <meshBasicMaterial color="#8A2BE2" transparent opacity={0.3} />
-        </mesh>
-      ))}
-    </group>
-  );
-}
-
-// Floating brain core
+// Simplified floating brain core
 function BrainCore() {
   const ref = useRef<THREE.Mesh>(null);
 
@@ -113,23 +53,21 @@ function BrainCore() {
   });
 
   return (
-    <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
-      <mesh ref={ref}>
-        <icosahedronGeometry args={[1.2, 2]} />
-        <meshStandardMaterial
-          color="#FF00FF"
-          transparent
-          opacity={0.6}
-          wireframe
-          emissive="#FF00FF"
-          emissiveIntensity={0.2}
-        />
-      </mesh>
-    </Float>
+    <mesh ref={ref}>
+      <icosahedronGeometry args={[1.2, 2]} />
+      <meshStandardMaterial
+        color="#FF00FF"
+        transparent
+        opacity={0.6}
+        wireframe
+        emissive="#FF00FF"
+        emissiveIntensity={0.2}
+      />
+    </mesh>
   );
 }
 
-// Main Neural Network 3D Scene
+// Main Neural Network 3D Scene - Simplified
 export default function NeuralNetwork() {
   return (
     <div className="absolute inset-0 w-full h-full">
@@ -143,7 +81,6 @@ export default function NeuralNetwork() {
         <pointLight position={[-10, -10, -10]} intensity={0.5} color="#8A2BE2" />
         
         <NeuralNodes />
-        <NeuralConnections />
         <BrainCore />
       </Canvas>
     </div>
